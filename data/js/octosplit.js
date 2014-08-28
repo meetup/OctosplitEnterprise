@@ -15,8 +15,11 @@ function addWordWrapCheckbox() {
   var $clickFn = function(event) {
     if ($(this).is(':checked')) {
        $('#files_bucket').addClass('word-wrap');
+			 var width = ( $("#octosplit").is(":checked") ) ? $(".container").width() / 2 : $(".container").width();
+			 $("pre.diff-line-pre").css("max-width", width - 175);
     } else {
        $('#files_bucket').removeClass('word-wrap');
+			 $("pre.diff-line-pre").css("max-width", null);
     }
   };
 
@@ -25,9 +28,15 @@ function addWordWrapCheckbox() {
 
 function addSideBySideCheckbox() {
   var $clickFn = function(event) {
+
+		if ( $("#wordwrap").is(":checked") ) {
+			$("#wordwrap").click();
+		}
+
     if ($(this).is(':checked')) {
       enlarge();
       splitDiffs();
+			$("#wordwrap").click();
 			$(document.body).addClass("split-diff");
     } else {
       shrink();
