@@ -2,6 +2,16 @@
   white-space: normal;
 }
 
+.word-wrap pre {
+
+	max-width:780px;
+	word-wrap:break-word;
+}
+
+.split-diff .inline-comments .comment-holder, .split-diff .inline-comments .inline-comment-form {
+	max-width: 100%!important;
+}
+
 .container.large {
   width: 98%;
 }

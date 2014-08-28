@@ -28,9 +28,11 @@ function addSideBySideCheckbox() {
     if ($(this).is(':checked')) {
       enlarge();
       splitDiffs();
+			$(document.body).addClass("split-diff");
     } else {
       shrink();
       resetDiffs();
+			$(document.body).removeClass("split-diff");
     }
   };
   addOneCheckbox('octosplit', 'octicon-mirror-public', 'Side by side', $clickFn, false);
