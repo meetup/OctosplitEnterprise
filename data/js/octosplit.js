@@ -1,9 +1,22 @@
 $(document).ready(function() {
+
   addAllTheCake();
   watchForPageChanges();
   manageNewComment();
   manageTabs();
+
+	//Waiting, to do this, because things get all funky when we execute right
+	//when the DOM is ready....
+	setTimeout(function() {
+		chrome.storage.local.get("sideXside", function(opts) {
+			if (opts['sideXside'] === true && $("#octosplit").is(":visible")) {
+				$("#octosplit").click();
+			}
+		});
+	}, 500);
+
 });
+
 
 function addAllTheCake() {
   addWordWrapCheckbox();
@@ -38,11 +51,14 @@ function addSideBySideCheckbox() {
       splitDiffs();
 			$("#wordwrap").click();
 			$(document.body).addClass("split-diff");
+			chrome.storage.local.set({"sideXside": true});
     } else {
       shrink();
       resetDiffs();
 			$(document.body).removeClass("split-diff");
+			chrome.storage.local.set({"sideXside":false});
     }
+
   };
   addOneCheckbox('octosplit', 'octicon-mirror-public', 'Side by side', $clickFn, false);
 }
@@ -210,11 +226,13 @@ function resetDiffLine($line) {
 }
 
 function splitInlineComment($line) {
+	$line.next("tr").after($line.detach());
   $line.children().first().attr('colspan', 1);
   $line.children().last().attr('colspan', 3);
 }
 
 function resetInlineComment($line) {
+	$line.prev("tr").before($line.detach());
   $line.children().first().attr('colspan', 2);
   $line.children().last().attr('colspan', 1);
 }
