@@ -111,9 +111,17 @@ function manageNewComment() {
       return;
     }
 
-    window.setTimeout(function() {
-      splitInlineComment($($elmt.parent().parent().next()));
-    }, 800);
+		var st = 0;
+		setTimeout(function() {
+				if (!$(".inline-comment-form").length && st < 1000) {
+					setTimeout(arguments.callee, 50);
+				} else {
+					splitInlineComment($($elmt.parent().parent().next()));
+					$(".show-inline-comment-form").addClass("actually-show");
+				}
+				st = st + 50;
+		}, 100);
+
   });
 }
 
@@ -200,7 +208,7 @@ function splitDiffLine($line) {
     $oldLOC.children().first().remove();
   }
 
-  $oldLOC.insertAfter($oldNumber);
+	$oldLOC.insertAfter($oldNumber);
   $newLOC.insertAfter($newNumber);
   $LOC.remove();
 }
@@ -242,7 +250,7 @@ function isFilesBucketTab() {
 }
 
 function isSplittable($table) {
-  return ($('tr.gd', $table).length || $('tr.gi', $table).length);
+  return ($('tr.gd', $table).length && $('tr.gi', $table).length);
 }
 
 function isResettable($table) {
