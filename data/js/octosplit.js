@@ -111,15 +111,21 @@ function manageNewComment() {
       return;
     }
 
+		$(".actually-show").removeClass("actually-show");
+
 		var st = 0;
+
 		setTimeout(function() {
-				if (!$(".inline-comment-form").length && st < 1000) {
-					setTimeout(arguments.callee, 50);
-				} else {
-					splitInlineComment($($elmt.parent().parent().next()));
-					$(".show-inline-comment-form").addClass("actually-show");
-				}
-				st = st + 50;
+
+			var $elm = $($elmt.parent().parent().next());
+
+			if (!$elm.hasClass("inline-comment-form") && st < 1000) {
+				setTimeout(arguments.callee, 50);
+			} else {
+				splitInlineComment($elm);
+				$elm.addClass("actually-show");
+			}
+			st = st + 50;
 		}, 100);
 
   });
