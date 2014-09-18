@@ -234,7 +234,11 @@ function resetDiffLine($line) {
 }
 
 function splitInlineComment($line) {
-	$line.next("tr").after($line.detach());
+	if ($line.hasClass("show-inline-comment-form")) {
+		$line.next("tr").before($line.detach());
+	} else {
+		$line.next("tr").after($line.detach());
+	}
   $line.children().first().attr('colspan', 1);
   $line.children().last().attr('colspan', 3);
 }
