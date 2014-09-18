@@ -19,8 +19,6 @@ $(document).ready(function() {
 
 		var $elm = $(this);
 
-		console.info($elm.prop("checked"));
-
 		if ( !$elm.prop("checked") ) {
 			setTimeout(function() {
 				$elm.parentsUntil(".discussion-item").find(".js-details-container").trigger("click");
