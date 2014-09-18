@@ -15,6 +15,20 @@ $(document).ready(function() {
 		});
 	}, 500);
 
+	$(".task-list-item-checkbox").each(function() {
+
+		var $elm = $(this);
+
+		console.info($elm.prop("checked"));
+
+		if ( !$elm.prop("checked") ) {
+			setTimeout(function() {
+				$elm.parentsUntil(".discussion-item").find(".js-details-container").trigger("click");
+			}, 250);
+		}
+
+	});
+
 });
 
 
@@ -124,6 +138,7 @@ function manageNewComment() {
 			} else {
 				splitInlineComment($elm);
 				$elm.addClass("actually-show");
+				$elm.find("textarea").val("- [ ] completed").focus();
 			}
 			st = st + 50;
 		}, 100);
