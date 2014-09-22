@@ -5,7 +5,7 @@ $(document).ready(function() {
   manageNewComment();
   manageTabs();
 
-	//Waiting, to do this, because things get all funky when we execute right
+	//Waiting to do this, because things get all funky when we execute right
 	//when the DOM is ready....
 	setTimeout(function() {
 		chrome.storage.local.get("sideXside", function(opts) {
@@ -15,14 +15,17 @@ $(document).ready(function() {
 		});
 	}, 500);
 
+
 	$(".task-list-item-checkbox").each(function() {
 
 		var $elm = $(this);
 
 		if ( !$elm.prop("checked") ) {
-			setTimeout(function() {
-				$elm.parentsUntil(".discussion-item").find(".js-details-container").trigger("click");
-			}, 250);
+
+			$elm.parentsUntil(".discussion-item")
+					.find(".discussion-item-toggle-closed")
+					.children().first().click();
+
 		}
 
 	});
