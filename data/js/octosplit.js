@@ -30,6 +30,18 @@ $(document).ready(function() {
 
 	});
 
+	var sawAlert = false
+
+	$(".merge-branch-action").on("click", function() {
+		$(".task-list-item-checkbox").each(function() {
+			if ( !$(this).prop("checked") && !sawAlert ) {
+				sawAlert = true;
+				alert("Whoaaaaa there! Looks like you might still have some outstanding issues.");
+				return;
+			}
+		});
+	});
+
 });
 
 
